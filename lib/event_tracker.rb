@@ -25,8 +25,9 @@ module EventTracker
       (session[:mixpanel_people_set_once] ||= {}).merge!(args)
     end
 
-    def mixpanel_people_increment(event_name)
-      (session[:mixpanel_people_increment] ||= []) << event_name
+    def mixpanel_people_increment(args)
+      a = args.is_a?(String) ? { args => 1 } : args
+      (session[:mixpanel_people_increment] ||= {}).merge!(a)
     end
 
     def mixpanel_alias(identity)
